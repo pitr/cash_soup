@@ -58,8 +58,8 @@
         nB = B;
         X = width / 2 + int(random(-200,200));
         Y = height / 2 + int(random(-100,100));
-        nX = X;
-        nY = Y;
+        nX = 10*int(random(-2,2)); // X
+        nY = 10*int(random(-2,2)); // Y
       }
 
 	  // Test to see if mouse is over this spring  
@@ -81,8 +81,10 @@
         B += (nB-B)/DELAY;
 
         // Track circle to new destination
-        X += (nX-X)/DELAY;
-        Y += (nY-Y)/DELAY;
+        //X += (nX-X)/DELAY;
+        //Y += (nY-Y)/DELAY;
+        X += nX/DELAY;
+        Y += nY/DELAY;
 
         // Draw circle
 		//console.log(symbol.key + ': ' + myColor[0]);
@@ -91,10 +93,11 @@
 		color d = color(myColor[0], myColor[1], myColor[2], over() ? 255 : myColor[3] );
 		
         fill(c); // outer (white)
-        ellipse( X, Y, R+B, R+B );
+        ellipse( X%width, Y%height, R+B, R+B );
+		//console.log(myColor);
+		color d = color(myColor[0], myColor[1], myColor[2], myColor[3]);
         fill(d); // inner (blue)
-        ellipse( X, Y, R, R );
-
+        ellipse( X%width, Y%height, R, R );
 		if (over()) {
 			fill(255,255,255,160);
 			rect(X+50, Y-20, 45, 20);
@@ -103,6 +106,7 @@
 			textFont(font);
 			text(symbol.key, X+18, Y-10);
 		}
+
       }
 
       void update() {
