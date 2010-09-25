@@ -23,11 +23,11 @@
 
     <script type="application/processing">
     // Global variables
-    console.log('start start');
+    //console.log('start start');
     int NUM = symbols.length;
     Spore SPORES = new Spore[NUM];
     int DELAY = 70;
-    console.log('end start');
+    //console.log('end start');
 
     class Spore {
       float R, nR; // current/new radius
@@ -40,11 +40,11 @@
 	  int[] myRadiusColor;
 	
       Spore(Object key) {
-        console.log('start init');
+        //console.log('start init');
         symbol = key;
         scale = symbol.scale;
 		myColor = symbol.color; //color(symbol.color[0], symbol.color[1], symbol.color[2], symbol.color[3]); 
-		console.log(myColor);
+		//console.log(myColor);
 		myRadiusColor = {253, 253, 253, 99}; // array
         R = 0.0;
         nR = R;
@@ -54,8 +54,20 @@
         Y = height / 2 + int(random(-200,200));
         nX = X;
         nY = Y;
-        console.log('end init');
+        //console.log('end init');
       }
+
+	  // Test to see if mouse is over this spring  
+	  boolean over() {  
+	    float disX = X - mouseX+200; // WTF ? why offset by 200? Something in the dom is causing this offset requirement - KV  
+	    float disY = Y - mouseY;  
+		
+	    if (sqrt(sq(disX) + sq(disY)) < (R+B)/2 ) {  
+	      return true;  
+	    } else {  
+	      return false;  
+	    }  
+	  }  
 
       void draw() {
         update();
@@ -69,13 +81,23 @@
 
         // Draw circle
 		//console.log(symbol.key + ': ' + myColor[0]);
+
 		color c = color(myRadiusColor[0],myRadiusColor[1],myRadiusColor[2], myRadiusColor[3]);
+		color d = color(myColor[0], myColor[1], myColor[2], over() ? 255 : myColor[3] );
+		
         fill(c); // outer (white)
         ellipse( X, Y, R+B, R+B );
-		//console.log(myColor);
-		color d = color(myColor[0], myColor[1], myColor[2], myColor[3]);
         fill(d); // inner (blue)
         ellipse( X, Y, R, R );
+
+		if (over()) {
+			fill(255,255,255,160);
+			rect(X+50, Y-20, 45, 20);
+			fill(0,0,0,200);
+	  		PFont font = loadFont("FFScala-32.vlw");
+			textFont(font);
+			text(symbol.key, X+18, Y-10);
+		}
       }
 
       void update() {
@@ -104,6 +126,7 @@
 
     // Setup the Processing Canvas
     void setup(){
+	  rectMode(CENTER_RADIUS);
       size( 1000, 500 );
       noStroke();
       frameRate( 30 );
@@ -124,11 +147,6 @@
       }
     }
 
-	// Set circle's next destination
-	void mouseMoved(){
-//	  mouseX;
-//	  mouseY;  
-	}
     </script>
 
     <canvas width='1000' height='500'></canvas>
