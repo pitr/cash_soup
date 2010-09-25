@@ -16,7 +16,7 @@ function startGettingRates() {
 			setTimeout(function() { startDemo(); getRate(symbol) }, checkDelay);
 		}
 	);
-	setInterval(refreshTable, 1000);
+	setInterval(refreshTable, 300);
 }
 
 // Get the rate from OANDA for a given Symbol, and then set a timeout to call itself
