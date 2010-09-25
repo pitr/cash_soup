@@ -78,7 +78,7 @@ var symbols = [
 
         R = 0.0;
         nR = R;
-        B = 2.0;
+        B = 7.0;
         nB = B;
         nX = 10*int(random(-2,2)); // X
         nY = 10*int(random(-2,2)); // Y
@@ -110,10 +110,12 @@ var symbols = [
 
         // Draw circle
         fill(myRadiusColor); // outer (white)
-        ellipse( mod(X,width), mod(Y,height), R+B, R+B );
+        X = mod(X, width);
+        Y = mod(Y,height);
+        ellipse( X, Y, R+B, R+B );
 
         fill(c1, c2, c3, over() ? 240 : c4); // inner (blue)
-        ellipse( mod(X,width), mod(Y,height), R, R );
+        ellipse( X, Y, R, R );
 
         if (over()) {
 			// display the hover text
@@ -152,7 +154,7 @@ var symbols = [
 
     // Setup the Processing Canvas
     void setup(){
-	  rectMode(CENTER_RADIUS);
+      rectMode(CENTER_RADIUS);
       size( 1000, 500 );
       noStroke();
       frameRate( 30 );
