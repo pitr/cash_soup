@@ -10,87 +10,6 @@
 </head>
 <body>
 
-<script type="application/processing">
-// Global variables
-console.log('start start');
-int NUM = 5;
-Spore SPORES = new Spore[NUM];
-int DELAY = 100;
-console.log('end start');
-
-class Spore {
-  float R, nR; // current/new radius
-  float B, nB; // current/new border margin
-  int X, Y; // current location
-  int nX, nY; // new location
-
-  Spore() {
-    console.log('start init');
-    R = 50.0;
-    nR = R;
-    B = 5.0;
-    nB = B;
-    X = width / 2 + int(random(-300,300));
-    Y = height / 2 + int(random(-300,300));
-    nX = X;
-    nY = Y;
-    console.log('end init');
-  }
-
-  void draw() {
-    R += (nR-R)/DELAY;
-    B += (nB-B)/DELAY;
-
-    // Track circle to new destination
-    X += (nX-X)/DELAY;
-    Y += (nY-Y)/DELAY;
-
-    // Draw circle
-    fill( 253, 253, 253, 99 ); // outer (white)
-    ellipse( X, Y, R+B, R+B );
-    fill( 0, 1, 81, 103 ); // inner (blue)
-    ellipse( X, Y, R, R );
-  }
-
-  // move towards (x,y)
-  void move(int x, int y) {
-    nX = x;
-    nY = y;
-  }
-
-  void setRadius(float r) {
-    nR = r;
-  }
-
-  void setBorder(float b) {
-    nB = b;
-  }
-}
-
-// Setup the Processing Canvas
-void setup(){
-  size( 1000, 500 );
-  noStroke();
-  frameRate( 30 );
-  for(int i=0; i<NUM; i++) {
-    SPORES[i] = new Spore();
-    SPORES[i].setRadius( random(20,50) );
-    SPORES[i].setBorder( random(0,50) );
-    SPORES[i].move( int(random(width)), int(random(height)) );
-  }
-}
-
-// Main draw loop
-void draw(){
-  // Fill canvas grey
-  background( 100 );
-
-  for(int i=0; i<NUM; i++) {
-    SPORES[i].draw();
-  }
-}
-</script>
-
 
 <div id="wrapper">
 	<div id="prompt" style="display:none">
@@ -101,7 +20,90 @@ void draw(){
 	</div>
 
 	<div id="main" style="display:none">
-		<canvas width='1000' height='500'></canvas>
+
+    <script type="application/processing">
+    // Global variables
+    console.log('start start');
+    int NUM = 5;
+    Spore SPORES = new Spore[NUM];
+    int DELAY = 100;
+    console.log('end start');
+
+    class Spore {
+      float R, nR; // current/new radius
+      float B, nB; // current/new border margin
+      int X, Y; // current location
+      int nX, nY; // new location
+
+      Spore() {
+        console.log('start init');
+        R = 50.0;
+        nR = R;
+        B = 5.0;
+        nB = B;
+        X = width / 2 + int(random(-300,300));
+        Y = height / 2 + int(random(-300,300));
+        nX = X;
+        nY = Y;
+        console.log('end init');
+      }
+
+      void draw() {
+        R += (nR-R)/DELAY;
+        B += (nB-B)/DELAY;
+
+        // Track circle to new destination
+        X += (nX-X)/DELAY;
+        Y += (nY-Y)/DELAY;
+
+        // Draw circle
+        fill( 253, 253, 253, 99 ); // outer (white)
+        ellipse( X, Y, R+B, R+B );
+        fill( 0, 1, 81, 103 ); // inner (blue)
+        ellipse( X, Y, R, R );
+      }
+
+      // move towards (x,y)
+      void move(int x, int y) {
+        nX = x;
+        nY = y;
+      }
+
+      void setRadius(float r) {
+        nR = r;
+      }
+
+      void setBorder(float b) {
+        nB = b;
+      }
+    }
+
+    // Setup the Processing Canvas
+    void setup(){
+      size( 1000, 500 );
+      noStroke();
+      frameRate( 30 );
+      for(int i=0; i<NUM; i++) {
+        SPORES[i] = new Spore();
+        SPORES[i].setRadius( random(20,50) );
+        SPORES[i].setBorder( random(0,50) );
+        SPORES[i].move( int(random(width)), int(random(height)) );
+      }
+    }
+
+    // Main draw loop
+    void draw(){
+      // Fill canvas grey
+      background( 100 );
+
+      for(int i=0; i<NUM; i++) {
+        SPORES[i].draw();
+      }
+    }
+    </script>
+
+    <canvas width='1000' height='500'></canvas>
+
 		<table id="datatable">
 			<thead>
 				<tr>
@@ -121,6 +123,7 @@ void draw(){
 		</table>
 	</div>
 </div>
+
 
 
 </body>
