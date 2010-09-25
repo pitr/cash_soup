@@ -1,4 +1,3 @@
-
 // refresh the data table
 function refreshTable() {
 	$.each(symbols,

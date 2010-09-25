@@ -9,11 +9,11 @@ var started = false;
 
 var symbols = [
 //USD/JPY, GBP/USD, AUD/USD, USD/CHF
-	{ key: "EUR/USD", data: null, scale: -1, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
-	{ key: "USD/CAD", data: null, scale: 1, color: [81, 1, 0, 103]},
-	{ key: "USD/CHF", data: null, scale: 1, color: [255, 255, 10, 103]},
-	{ key: "GBP/USD", data: null, scale: -1, color: [1, 130, 200, 103]},
-	{ key: "AUD/USD", data: null, scale: -1, color: [10, 100, 10, 103]} 
+	{ key: "EUR/USD", data: null, x_start: 180, y_start: 100, scale: -1, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
+	{ key: "USD/CAD", data: null, x_start: 130, y_start: 360, scale: 1, color: [81, 1, 0, 103]},
+	{ key: "USD/CHF", data: null, x_start: 500, y_start: 300, scale: 1, color: [255, 255, 10, 103]},
+	{ key: "GBP/USD", data: null, x_start: 800, y_start: 100, scale: -1, color: [1, 130, 200, 103]},
+	{ key: "AUD/USD", data: null, x_start: 800, y_start: 360, scale: -1, color: [10, 100, 10, 103]} 
 ];
 
 </script>
@@ -71,14 +71,15 @@ var symbols = [
         c3 = symbol.color[2];
         c4 = symbol.color[3];
 
+        X = symbol.x_start;
+        Y = symbol.y_start;
+
         myRadiusColor = color(253, 253, 253, 99);
 
         R = 0.0;
         nR = R;
         B = 2.0;
         nB = B;
-        X = width / 2 + int(random(-200,200));
-        Y = height / 2 + int(random(-100,100));
         nX = 10*int(random(-2,2)); // X
         nY = 10*int(random(-2,2)); // Y
       }
