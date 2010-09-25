@@ -1,6 +1,10 @@
 <html>
 <head>
 <title>nice</title>
+<link rel="stylesheet" href="style.css" TYPE="text/css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://graupel.oanda.com:8080/hackto/fxtrade.js"></script>
+<script type="text/javascript" src="fux.js"></script>
 <script language="javascript" src="processing.init.js"></script>
 <script language="javascript" src="processing.js"></script>
 </head>
@@ -65,7 +69,7 @@ class Spore {
 
 // Setup the Processing Canvas
 void setup(){
-  size( 1200, 600 );
+  size( 1000, 500 );
   noStroke();
   frameRate( 30 );
   for(int i=0; i<NUM; i++) {
@@ -87,5 +91,37 @@ void draw(){
 }
 </script>
 
-<canvas></canvas></body>
+
+<div id="wrapper">
+	<div id="prompt" style="display:none">
+
+	</div>
+	<div id="splash">
+		<h1>CASH SS$OUP! (WTF?)<br/><br/><br/> PLEASE STAND BY</h1>
+	</div>
+
+	<div id="main" style="display:none">
+		<canvas width='1000' height='500'></canvas>
+		<table id="datatable">
+			<thead>
+				<tr>
+					<th>KEY</th>
+					<th>ASK</th>
+				</tr>
+			</thead>
+			<tbody>
+				<script>
+					$.each(symbols,
+						function(i, symbol) {
+							document.write('<tr data-symbol="'+symbol.key+'"><td>'+symbol.key+'</td><td class="ask">--</td></tr>');
+						}
+					);
+				</script>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+</body>
 </html>
