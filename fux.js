@@ -10,7 +10,9 @@ var symbols = [
 function refreshTable() {
 	$.each(symbols,
 		function(i, symbol) {
-			$('#datatable tr[data-symbol='+ symbol.key +'] td.ask').html(symbol.data.ask);
+			if (symbol.data) {
+				$('#datatable tr[data-symbol='+ symbol.key +'] td.ask').html(symbol.data.ask);
+			}
 		}
 	);
 }
@@ -26,10 +28,8 @@ function startGettingRates() {
 
 // Get the rate from OANDA for a given Symbol, and then set a timeout to call itself
 function getRate(symbol) {
-	console.log('getting rate for: ' + symbol.key);
 	OANDA.rate.quote(sessionToken, [symbol.key], function(rateResponse)  {
 		symbol.data = rateResponse.prices[0];
-		console.log(symbol.data);
 		setTimeout(function(){getRate(symbol);}, checkDelay);
 	});	
 }
