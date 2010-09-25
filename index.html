@@ -24,9 +24,9 @@
     <script type="application/processing">
     // Global variables
     console.log('start start');
-    int NUM = 5;
+    int NUM = symbols.length;
     Spore SPORES = new Spore[NUM];
-    int DELAY = 100;
+    int DELAY = 70;
     console.log('end start');
 
     class Spore {
@@ -34,21 +34,27 @@
       float B, nB; // current/new border margin
       int X, Y; // current location
       int nX, nY; // new location
+      Object symbol;
+      float scale;
 
-      Spore() {
+      Spore(Object key) {
         console.log('start init');
-        R = 50.0;
+        symbol = key;
+        scale = symbol.scale;
+        R = 0.0;
         nR = R;
-        B = 5.0;
+        B = 0.0;
         nB = B;
-        X = width / 2 + int(random(-300,300));
-        Y = height / 2 + int(random(-300,300));
+        X = width / 2 + int(random(-200,200));
+        Y = height / 2 + int(random(-200,200));
         nX = X;
         nY = Y;
         console.log('end init');
       }
 
       void draw() {
+        update();
+
         R += (nR-R)/DELAY;
         B += (nB-B)/DELAY;
 
@@ -61,6 +67,15 @@
         ellipse( X, Y, R+B, R+B );
         fill( 0, 1, 81, 103 ); // inner (blue)
         ellipse( X, Y, R, R );
+      }
+
+      void update() {
+        if(symbol.data) {
+          //console.log(symbol.data.ask);
+          float ask = symbol.data.ask;
+          setRadius((ask-scale)*100000);
+          B = 2.0;
+        }
       }
 
       // move towards (x,y)
@@ -84,10 +99,9 @@
       noStroke();
       frameRate( 30 );
       for(int i=0; i<NUM; i++) {
-        SPORES[i] = new Spore();
-        SPORES[i].setRadius( random(20,50) );
-        SPORES[i].setBorder( random(0,50) );
-        SPORES[i].move( int(random(width)), int(random(height)) );
+        SPORES[i] = new Spore(symbols[i]);
+        SPORES[i].setRadius( 0.0 );
+        SPORES[i].setBorder( 0.0 );
       }
     }
 

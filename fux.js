@@ -3,8 +3,8 @@ var checkDelay = 3000;
 
 var symbols = [
 //EUR/USD, USD/JPY, GBP/USD, AUD/USD, USD/CHF and USD/CAD
-	{ key: "EUR/USD", data: null},
-	{ key: "USD/CAD", data: null}
+	{ key: "EUR/USD", data: null, scale: 1.308},
+	{ key: "USD/CAD", data: null, scale: 1.026}
 ];
 
 // refresh the data table
