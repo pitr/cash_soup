@@ -23,11 +23,15 @@
 
     <script type="application/processing">
     // Global variables
-    //console.log('start start');
     int NUM = symbols.length;
     Spore SPORES = new Spore[NUM];
     int DELAY = 70;
-    //console.log('end start');
+
+    float SCALE;
+    float SCALE_MIN = 99999.0;
+    float SCALE_MAX = 0.0;
+    float RADIUS_MIN = 20.0;
+    float RADIUS_MAX = 200.0;
 
     class Spore {
       float R, nR; // current/new radius
@@ -35,12 +39,14 @@
       int X, Y; // current location
       int nX, nY; // new location
       Object symbol;
-      float scale;
-	  int[] myColour;
-	  int[] myRadiusColor;
-	
+
+      int[] myColour;
+      int[] myRadiusColor;
+
+      int scale;
+      float ask; //tmp radius
+
       Spore(Object key) {
-        //console.log('start init');
         symbol = key;
         scale = symbol.scale;
 		myColor = symbol.color; //color(symbol.color[0], symbol.color[1], symbol.color[2], symbol.color[3]); 
@@ -48,13 +54,12 @@
 		myRadiusColor = {253, 253, 253, 99}; // array
         R = 0.0;
         nR = R;
-        B = 0.0;
+        B = 2.0;
         nB = B;
         X = width / 2 + int(random(-200,200));
-        Y = height / 2 + int(random(-200,200));
+        Y = height / 2 + int(random(-100,100));
         nX = X;
         nY = Y;
-        //console.log('end init');
       }
 
 	  // Test to see if mouse is over this spring  
@@ -70,7 +75,7 @@
 	  }  
 
       void draw() {
-        update();
+        setRadius(RADIUS_MIN + (ask-SCALE_MIN)/(SCALE_MAX-SCALE_MIN)*(RADIUS_MAX-RADIUS_MIN));
 
         R += (nR-R)/DELAY;
         B += (nB-B)/DELAY;
@@ -102,10 +107,10 @@
 
       void update() {
         if(symbol.data) {
-          //console.log(symbol.data.ask);
-          float ask = symbol.data.ask;
-          setRadius((ask-scale)*100000);
-          B = 2.0;
+          ask = symbol.data.ask;
+          ask = scale > 0 ? ask : 1.0 / ask;
+          SCALE_MIN = min(SCALE_MIN, ask);
+          SCALE_MAX = max(SCALE_MAX, ask);
         }
       }
 
@@ -116,11 +121,11 @@
       }
 
       void setRadius(float r) {
-        nR = r;
+        nR = max(r, 0.0);
       }
 
       void setBorder(float b) {
-        nB = b;
+        nB = max(b, 0.0);
       }
     }
 
@@ -133,7 +138,6 @@
       for(int i=0; i<NUM; i++) {
         SPORES[i] = new Spore(symbols[i]);
         SPORES[i].setRadius( 0.0 );
-        SPORES[i].setBorder( 0.0 );
       }
     }
 
@@ -142,6 +146,9 @@
       // Fill canvas grey
       background( 100 );
 
+      for(int i=0; i<NUM; i++) {
+        SPORES[i].update();
+      }
       for(int i=0; i<NUM; i++) {
         SPORES[i].draw();
       }
