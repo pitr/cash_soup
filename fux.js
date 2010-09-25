@@ -3,12 +3,11 @@ var checkDelay = 3000;
 
 var symbols = [
 //USD/JPY, GBP/USD, AUD/USD, USD/CHF
-	{ key: "EUR/USD", data: null, scale: 1, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
+	{ key: "EUR/USD", data: null, scale: -1, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
 	{ key: "USD/CAD", data: null, scale: 1, color: [81, 1, 0, 103]},
 	{ key: "USD/CHF", data: null, scale: 1, color: [11, 100, 0, 103]},
-//{ key: "USD/JPY", data: null, scale: -1, color: [81, 19, 0, 103]},
-	{ key: "GBP/USD", data: null, scale: 1, color: [41, 30, 200, 103]},
-	{ key: "AUD/USD", data: null, scale: 1, color: [10, 100, 10, 103]} 
+	{ key: "GBP/USD", data: null, scale: -1, color: [41, 30, 200, 103]},
+	{ key: "AUD/USD", data: null, scale: -1, color: [10, 100, 10, 103]} 
 ];
 
 // refresh the data table

@@ -33,6 +33,11 @@
     float RADIUS_MIN = 20.0;
     float RADIUS_MAX = 200.0;
 
+    float mod(float x, float m) {
+      x = x % m;
+      return x > 0 ? x : m + x;
+    }
+
     class Spore {
       float R, nR; // current/new radius
       float B, nB; // current/new border margin
@@ -40,8 +45,8 @@
       int nX, nY; // new location
       Object symbol;
 
-      int[] myColour;
-      int[] myRadiusColor;
+      int c1, c2, c3, c4;
+      color myRadiusColor;
 
       int scale;
       float ask; //tmp radius
@@ -49,9 +54,14 @@
       Spore(Object key) {
         symbol = key;
         scale = symbol.scale;
-		myColor = symbol.color; //color(symbol.color[0], symbol.color[1], symbol.color[2], symbol.color[3]); 
-		//console.log(myColor);
-		myRadiusColor = {253, 253, 253, 99}; // array
+
+        c1 = symbol.color[0];
+        c2 = symbol.color[1];
+        c3 = symbol.color[2];
+        c4 = symbol.color[3];
+
+        myRadiusColor = color(253, 253, 253, 99);
+
         R = 0.0;
         nR = R;
         B = 2.0;
@@ -62,17 +72,17 @@
         nY = 10*int(random(-2,2)); // Y
       }
 
-	  // Test to see if mouse is over this spring  
-	  boolean over() {  
-	    float disX = X - mouseX+200; // WTF ? why offset by 200? Something in the dom is causing this offset requirement - KV  
-	    float disY = Y - mouseY;  
-		
-	    if (sqrt(sq(disX) + sq(disY)) < (R+B)/2 ) {  
-	      return true;  
-	    } else {  
-	      return false;  
-	    }  
-	  }  
+      // Test to see if mouse is over this spring
+      boolean over() {
+        float disX = X - mouseX+200; // WTF ? why offset by 200? Something in the dom is causing this offset requirement - KV
+        float disY = Y - mouseY;
+
+        if (sqrt(sq(disX) + sq(disY)) < (R+B)/2 ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 
       void draw() {
         setRadius(RADIUS_MIN + (ask-SCALE_MIN)/(SCALE_MAX-SCALE_MIN)*(RADIUS_MAX-RADIUS_MIN));
@@ -87,26 +97,20 @@
         Y += nY/DELAY;
 
         // Draw circle
-		//console.log(symbol.key + ': ' + myColor[0]);
+        fill(myRadiusColor); // outer (white)
+        ellipse( mod(X,width), mod(Y,height), R+B, R+B );
 
-		color c = color(myRadiusColor[0],myRadiusColor[1],myRadiusColor[2], myRadiusColor[3]);
-		color d = color(myColor[0], myColor[1], myColor[2], over() ? 255 : myColor[3] );
-		
-        fill(c); // outer (white)
-        ellipse( X%width, Y%height, R+B, R+B );
-		//console.log(myColor);
-		color d = color(myColor[0], myColor[1], myColor[2], myColor[3]);
-        fill(d); // inner (blue)
-        ellipse( X%width, Y%height, R, R );
-		if (over()) {
-			fill(255,255,255,160);
-			rect(X+50, Y-20, 45, 20);
-			fill(0,0,0,200);
-	  		PFont font = loadFont("FFScala-32.vlw");
-			textFont(font);
-			text(symbol.key, X+18, Y-10);
-		}
+        fill(c1, c2, c3, c4); // inner (blue)
+        ellipse( mod(X,width), mod(Y,height), R, R );
 
+        if (over()) {
+            fill(255,255,255,160);
+            rect(X+50, Y-20, 45, 20);
+            fill(0,0,0,200);
+            	PFont font = loadFont("FFScala-32.vlw");
+            textFont(font);
+            text(symbol.key, X+18, Y-10);
+        }
       }
 
       void update() {
@@ -141,7 +145,6 @@
       frameRate( 30 );
       for(int i=0; i<NUM; i++) {
         SPORES[i] = new Spore(symbols[i]);
-        SPORES[i].setRadius( 0.0 );
       }
     }
 
@@ -157,7 +160,6 @@
         SPORES[i].draw();
       }
     }
-
     </script>
 
     <canvas width='1000' height='500'></canvas>
