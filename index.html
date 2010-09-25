@@ -36,11 +36,16 @@
       int nX, nY; // new location
       Object symbol;
       float scale;
-
+	  int[] myColour;
+	  int[] myRadiusColor;
+	
       Spore(Object key) {
         console.log('start init');
         symbol = key;
         scale = symbol.scale;
+		myColor = symbol.color; //color(symbol.color[0], symbol.color[1], symbol.color[2], symbol.color[3]); 
+		console.log(myColor);
+		myRadiusColor = {253, 253, 253, 99}; // array
         R = 0.0;
         nR = R;
         B = 0.0;
@@ -63,9 +68,13 @@
         Y += (nY-Y)/DELAY;
 
         // Draw circle
-        fill( 253, 253, 253, 99 ); // outer (white)
+		//console.log(symbol.key + ': ' + myColor[0]);
+		color c = color(myRadiusColor[0],myRadiusColor[1],myRadiusColor[2], myRadiusColor[3]);
+        fill(c); // outer (white)
         ellipse( X, Y, R+B, R+B );
-        fill( 0, 1, 81, 103 ); // inner (blue)
+		//console.log(myColor);
+		color d = color(myColor[0], myColor[1], myColor[2], myColor[3]);
+        fill(d); // inner (blue)
         ellipse( X, Y, R, R );
       }
 
@@ -114,6 +123,12 @@
         SPORES[i].draw();
       }
     }
+
+	// Set circle's next destination
+	void mouseMoved(){
+//	  mouseX;
+//	  mouseY;  
+	}
     </script>
 
     <canvas width='1000' height='500'></canvas>
@@ -129,7 +144,7 @@
 				<script>
 					$.each(symbols,
 						function(i, symbol) {
-							document.write('<tr data-symbol="'+symbol.key+'"><td>'+symbol.key+'</td><td class="ask">--</td></tr>');
+							document.write('<tr data-symbol="'+symbol.key+'"><td style="background: rgba('+symbol.color[0]+','+symbol.color[1]+','+symbol.color[2]+',0.5)">'+symbol.key+'</td><td class="ask">--</td></tr>');
 						}
 					);
 				</script>

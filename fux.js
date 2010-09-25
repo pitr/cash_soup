@@ -2,9 +2,13 @@ var sessionToken = '';
 var checkDelay = 3000;
 
 var symbols = [
-//EUR/USD, USD/JPY, GBP/USD, AUD/USD, USD/CHF and USD/CAD
-	{ key: "EUR/USD", data: null, scale: 1.308},
-	{ key: "USD/CAD", data: null, scale: 1.026}
+//USD/JPY, GBP/USD, AUD/USD, USD/CHF
+	{ key: "EUR/USD", data: null, scale: 1.308, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
+	{ key: "USD/CAD", data: null, scale: 1.026, color: [81, 1, 0, 103]},
+	{ key: "USD/CHF", data: null, scale: 1.014, color: [11, 100, 0, 103]},
+//	{ key: "USD/JPY", data: null, scale: 84.0, color: [81, 19, 0, 103]},
+	{ key: "GBP/USD", data: null, scale: 1.563, color: [41, 30, 200, 103]},
+	//{ key: "AUD/USD", data: null, scale: 0.900, color: [10, 100, 10, 103]} 
 ];
 
 // refresh the data table
