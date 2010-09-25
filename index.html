@@ -2,21 +2,32 @@
 <head>
 <title>nice</title>
 <link rel="stylesheet" href="style.css" TYPE="text/css">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://graupel.oanda.com:8080/hackto/fxtrade.js"></script>
-<script type="text/javascript" src="fux.js"></script>
-<script language="javascript" src="processing.init.js"></script>
-<script language="javascript" src="processing.js"></script>
+<script>
+var sessionToken = '';
+var checkDelay = 3000;
+var started = false;
+
+var symbols = [
+//USD/JPY, GBP/USD, AUD/USD, USD/CHF
+	{ key: "EUR/USD", data: null, scale: -1, color: [0, 1, 81, 103]}, // default blue color:  0, 1, 81, 103 
+	{ key: "USD/CAD", data: null, scale: 1, color: [81, 1, 0, 103]},
+	{ key: "USD/CHF", data: null, scale: 1, color: [255, 255, 10, 103]},
+	{ key: "GBP/USD", data: null, scale: -1, color: [1, 130, 200, 103]},
+	{ key: "AUD/USD", data: null, scale: -1, color: [10, 100, 10, 103]} 
+];
+
+</script>
 </head>
 <body>
-
 
 <div id="wrapper">
 	<div id="prompt" style="display:none">
 
 	</div>
-	<div id="splash">
-		<h1>CASH SS$OUP! (WTF?)<br/><br/><br/> PLEASE STAND BY</h1>
+	<div id="splash" style="text-align:center;">
+		<h1>CASH $OUP, WTF! (World - Trading - Financials)</h1>
+		<h2>Loading ... <span id="splashstatus"></span></h2>
+		<img src="soup.gif" alt="soup" id="splashimage" style="opacity: 0.2" />
 	</div>
 
 	<div id="main" style="display:none">
@@ -100,14 +111,15 @@
         fill(myRadiusColor); // outer (white)
         ellipse( mod(X,width), mod(Y,height), R+B, R+B );
 
-        fill(c1, c2, c3, c4); // inner (blue)
+        fill(c1, c2, c3, over() ? 240 : c4); // inner (blue)
         ellipse( mod(X,width), mod(Y,height), R, R );
 
         if (over()) {
+			// display the hover text
             fill(255,255,255,160);
             rect(X+50, Y-20, 45, 20);
             fill(0,0,0,200);
-            	PFont font = loadFont("FFScala-32.vlw");
+            PFont font = loadFont("FFScala-32.vlw");
             textFont(font);
             text(symbol.key, X+18, Y-10);
         }
@@ -173,18 +185,21 @@
 			</thead>
 			<tbody>
 				<script>
-					$.each(symbols,
-						function(i, symbol) {
-							document.write('<tr data-symbol="'+symbol.key+'"><td style="background: rgba('+symbol.color[0]+','+symbol.color[1]+','+symbol.color[2]+',0.5)">'+symbol.key+'</td><td class="ask">--</td></tr>');
-						}
-					);
+					for (var i=0; i< symbols.length; i++) {
+						var symbol = symbols[i];
+						document.write('<tr data-symbol="'+symbol.key+'"><td style="background: rgba('+symbol.color[0]+','+symbol.color[1]+','+symbol.color[2]+',0.5)">'+symbol.key+'</td><td class="ask">--</td></tr>');
+					}
 				</script>
 			</tbody>
 		</table>
 	</div>
 </div>
 
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://graupel.oanda.com:8080/hackto/fxtrade.js"></script>
+<script type="text/javascript" src="fux.js"></script>
+<script language="javascript" src="processing.init.js"></script>
+<script language="javascript" src="processing.js"></script>
 
 </body>
 </html>

@@ -9,8 +9,8 @@
 	position: absolute;
 	top: 100px;
 	left: 250px;
-	background-color: blue;
-	opacity: 0.3;
+	background-color: #CCC;
+	opacity: 0.8;
 } 
 #main {
 	width: 1000px;
