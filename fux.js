@@ -7,6 +7,7 @@ var symbols = [
 	{ key: "USD/CAD", data: null}
 ];
 
+// refresh the data table
 function refreshTable() {
 	$.each(symbols,
 		function(i, symbol) {
@@ -36,12 +37,6 @@ function getRate(symbol) {
 
 $(document).ready(function(){
 	OANDA.user.login("testusr2", "Passw0rd", function(loginResponse) {
-	/*        OANDA.account.list(loginResponse.session_token, function(accountListResponse) {
-	            OANDA.trade.list(loginResponse.session_token, accountListResponse.account_list[0].id, function(tradeListResponse) {
-	                console.log(tradeListResponse);
-	            });
-	        });
-	*/		
 			// hide splash page and show the main canvas
 			$('#splash').fadeOut('fast', function() { $('#main').fadeIn('slow');  });
 			sessionToken = loginResponse.session_token;
