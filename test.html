@@ -1,0 +1,80 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://graupel.oanda.com:8080/hackto/fxtrade.js"></script>
+
+<style>
+	.wrapper {
+		width: 1000px;
+		height: 500px;
+		margin: auto auto;
+		position: relative;
+	}
+	.splash {
+		width: 500px;
+		position: absolute;
+		top: 100px;
+		left: 250px;
+		background-color: blue;
+		opacity: 0.3;
+	} 
+	.main {
+		width: 1000px;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		background-color: #EEE;
+	}
+</style>
+
+<script type="text/javascript">
+var sessionToken = '';
+
+var symbols = [
+	"EUR/USD",
+	"USD/CAD"
+];
+	
+OANDA.user.login("testusr2", "Passw0rd", function(loginResponse) {
+/*        OANDA.account.list(loginResponse.session_token, function(accountListResponse) {
+            OANDA.trade.list(loginResponse.session_token, accountListResponse.account_list[0].id, function(tradeListResponse) {
+                console.log(tradeListResponse);
+            });
+        });
+*/		
+		// hide splash page and show the main canvas
+		$('.splash').fadeOut('fast', function() { $('.main').fadeIn('slow');  });
+		sessionToken = loginResponse.session_token;
+		startPollingRates();
+});
+
+function startPollingRates() {
+	$.each(symbols,
+		function() {}
+	);
+}
+
+function getRate(symbol) {
+	OANDA.rate.quote(sessionToken, symbols, function(rateResponse)  {
+		console.log(rateResponse);
+	});	
+}
+
+</script>
+
+</head>
+<body>
+	<div id="wrapper">
+		<div id="prompt" style="display:none">
+			
+		</div>
+		<div id="splash">
+			<h1>CASH $OUP! (WTF?)<br/><br/><br/> PLEASE STAND BY</h1>
+		</div>
+	
+		<div id="main" style="display:none">
+			<h1>THIS IS THE CANVAS!</h1>
+		</div>
+	</div>
+</body>
+</html>
