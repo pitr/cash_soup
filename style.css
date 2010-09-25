@@ -1,0 +1,21 @@
+#wrapper {
+	width: 1000px;
+	height: 500px;
+	margin: auto auto;
+	position: relative;
+}
+#splash {
+	width: 500px;
+	position: absolute;
+	top: 100px;
+	left: 250px;
+	background-color: blue;
+	opacity: 0.3;
+} 
+#main {
+	width: 1000px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #EEE;
+}
