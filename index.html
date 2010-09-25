@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>nice</title>
+<script language="javascript" src="processing.init.js"></script>
+<script language="javascript" src="processing.js"></script>
+</head>
+<body>
+
+<script type="application/processing">
+// Global variables
+console.log('start start');
+int num = 5;
+Spore spores = new Spore[num];
+int delay = 30;
+console.log('end start');
+
+class Spore {
+  float radius;
+  int X,Y; // current location
+  int nX, nY; // new location
+  Spore() {
+    console.log('start init');
+    radius = 50.0;
+    X = width / 2 + int(random(-300,300));
+    Y = height / 2 + int(random(-300,300));
+    nX = X;
+    nY = Y;
+    console.log('end init');
+  }
+  void draw() {
+    radius = radius + sin( frameCount / 4 );
+
+    // Track circle to new destination
+    X += (nX-X)/delay;
+    Y += (nY-Y)/delay;
+
+    // Draw circle
+    ellipse( X, Y, radius, radius );
+  }
+  void move(int x, int y) {
+    nX = x;
+    nY = y;
+  }
+}
+
+// Setup the Processing Canvas
+void setup(){
+  size( 1200, 600 );
+  strokeWeight( 10 );
+  frameRate( 15 );
+  for(int i=0; i<num; i++) {
+    spores[i] = new Spore();
+  }
+}
+
+// Main draw loop
+void draw(){
+  // Fill canvas grey
+  background( 100 );
+
+  // Set fill-color to blue
+  fill( 0, 121, 184 );
+
+  // Set stroke-color white
+  stroke(255);
+
+  for(int i=0; i<num; i++) {
+    spores[i].draw();
+  }
+}
+
+
+// Set circle's next destination
+void mouseMoved(){
+  for(int i=0; i<num; i++) {
+    spores[i].move(mouseX, mouseY);
+  }
+}
+</script>
+
+<canvas></canvas></body>
+</html>
