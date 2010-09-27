@@ -6,4 +6,4 @@ Used: HTML5, Processing.js, jQuery
 
 API: OANDA (http://www.oanda.com/)
 
-Demo: http://pitr.github.com/cash_soup/
+Demo: http://pitr.github.com/cash_soup
