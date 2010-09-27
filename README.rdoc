@@ -1,0 +1,9 @@
+= Our entry to HackTO2
+
+Team: pitr (http://github.com/pitr) and Khurram (http://github.com/kvirani)
+
+Used: HTML5, Processing.js, jQuery
+
+API: OANDA (http://www.oanda.com/)
+
+Demo: http://pitr.github.com/cash_soup/
